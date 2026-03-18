@@ -23,15 +23,23 @@ export default class PaginaLogin{
         await expect(this.page).toHaveURL("http://localhost:4200/auth/login")
     }
 
-    async realizarLogin(email : string, senha: string){
-        await this.inputEmail.fill(email);
-        await this.inputSenha.fill(senha);
+    async realizarLogin(email : string, senha: string){ 
+        await this.preencherCamposLogin(email,senha);
         await this.botaoAcessarConta.click();
-
-        await this.validarLogin()
-
     }
 
+    async verificaMensagemErro(menasgem : string){
+        const elementoErro = this.page.getByText(menasgem);
+
+        await expect(elementoErro).toBeVisible();
+    }
+
+    async preencherCamposLogin(email : string, senha: string){
+        await this.inputEmail.fill(email);
+        await this.inputEmail.blur()
+        await this.inputSenha.fill(senha);
+        await this.inputSenha.blur()
+    }
 
     async validarLogin(){
         await expect(this.page).toHaveURL("http://localhost:4200/home")
