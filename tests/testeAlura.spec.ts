@@ -6,7 +6,9 @@ test.describe("Acessar Localhost", () => {
 
         await expect(page).toHaveTitle("Jornada Milhas")
 
-        await expect(page.getByRole("heading", {name: "Passagens"})).toBeVisible()
+        const loc = page.locator("h2[data-testid='titulo-passagens']")
+        await expect.soft(loc).toContainText("texto aleatorio")
+        await expect(loc).toBeVisible()
         
         //ou outra maneira:
         //const tituloPassagens = page.getByRole("heading", {name: "Passagens"}))
@@ -16,7 +18,6 @@ test.describe("Acessar Localhost", () => {
 
         await expect(page.getByRole("heading", {name: "Depoimentos"})).toBeVisible()
 
-        await expect(page.getByTestId("titulo-passagens")).toBeVisible()
 
 
 
